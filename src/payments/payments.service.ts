@@ -30,8 +30,10 @@ export class PaymentsService {
       },
       line_items: lineItems,
       mode: 'payment',
-      success_url: 'http://localhost:3003/payments/success', // url del front
-      cancel_url: 'http://localhost:3003/payments/cancel', // url del front
+
+      // urls del front
+      success_url: envs.stripeSuccessUrl,
+      cancel_url: envs.stripeCancelUrl,
     });
 
     return session;
@@ -40,12 +42,11 @@ export class PaymentsService {
   async stripeWebhook(req: Request, res: Response) {
     const sig = req.headers['stripe-signature'];
     let event: Stripe.Event;
-    // testing
-    // const endpointSecret =
-    //   'whsec_eee565cc79ca31ba9055d8da5149d7e8e5d822f5c5c0825d45d7cb9f620ff1ed';
+    // testing: https://dashboard.stripe.com/test/webhooks/create?endpoint_location=local
+    // const endpointSecret = "crear para testing"
 
     // production
-    const endpointSecret = 'whsec_PmfHqYzMbrOF3MFOBuoEoZ3GRWRIubuD';
+    const endpointSecret = envs.stripeEndpointSecret;
 
     try {
       event = this.stripe.webhooks.constructEvent(
@@ -62,10 +63,10 @@ export class PaymentsService {
       case 'charge.succeeded':
         // TODO: llamar nuestro microservicio
         const chargeSucceeded = event.data.object;
-        console.log({
-          metadata: chargeSucceeded.metadata,
-          orderId: chargeSucceeded.metadata.orderId,
-        });
+        // console.log({
+        //   metadata: chargeSucceeded.metadata,
+        //   orderId: chargeSucceeded.metadata.orderId,
+        // });
         break;
 
       default:
