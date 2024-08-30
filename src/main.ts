@@ -16,12 +16,17 @@ async function bootstrap() {
     }),
   );
 
-  app.connectMicroservice<MicroserviceOptions>({
-    transport: Transport.NATS,
-    options: {
-      servers: envs.natsServers,
+  app.connectMicroservice<MicroserviceOptions>(
+    {
+      transport: Transport.NATS,
+      options: {
+        servers: envs.natsServers,
+      },
     },
-  });
+
+    // habilitar global pipes, interceptors, guards and filters (solo para hybrid apps)
+    { inheritAppConfig: true },
+  );
 
   app.startAllMicroservices();
 
