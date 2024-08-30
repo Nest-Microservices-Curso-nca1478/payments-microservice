@@ -67,10 +67,10 @@ export class PaymentsService {
       case 'charge.succeeded':
         // TODO: llamar nuestro microservicio
         const chargeSucceeded = event.data.object;
-        // console.log({
-        //   metadata: chargeSucceeded.metadata,
-        //   orderId: chargeSucceeded.metadata.orderId,
-        // });
+        console.log({
+          metadata: chargeSucceeded.metadata,
+          orderId: chargeSucceeded.metadata.orderId,
+        });
         break;
 
       default:
