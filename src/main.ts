@@ -7,6 +7,7 @@ import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 async function bootstrap() {
   const logger = new Logger('Main');
 
+  // rawBody: body completo y sin procesar (así lo requiere stripe)
   const app = await NestFactory.create(AppModule, { rawBody: true });
 
   app.useGlobalPipes(
