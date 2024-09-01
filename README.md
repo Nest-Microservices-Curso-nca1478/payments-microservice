@@ -22,5 +22,3 @@
 5. Actualizar las variables de entorno.
 6. Configurar el port forwarder en Vscode para pruebas (ctrl + ñ, pestaña PUERTOS)
 7. Ejecutar `npm run start:dev`.
-8. Esta es una prueba
-9. Esta es una prueba 2
